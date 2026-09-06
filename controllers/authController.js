@@ -3,7 +3,14 @@ const { generateAccessToken, generateRefreshToken } = require("../utils/generate
 
 const register = async (req, res, next) => {
   try {
-    const { name, email, password, role } = req.body;
+    const { name, email, password } = req.body;
+
+const User = await User.create({
+  name,
+  email,
+  password,
+  role: "user",
+});
 
     if (!name || !email || !password) {
       return res.status(400).json({
@@ -21,12 +28,11 @@ const register = async (req, res, next) => {
     }
 
     const user = await User.create({
-      name,
-      email,
-      password,
-      role: role === "admin" ? "admin" : "user",
-    });
-
+  name,
+  email,
+  password,
+  role: "user",
+});
     const accessToken = generateAccessToken(user._id, user.role);
     const refreshToken = generateRefreshToken(user._id);
 
