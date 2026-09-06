@@ -5,13 +5,6 @@ const register = async (req, res, next) => {
   try {
     const { name, email, password } = req.body;
 
-const User = await User.create({
-  name,
-  email,
-  password,
-  role: "user",
-});
-
     if (!name || !email || !password) {
       return res.status(400).json({
         success: false,
