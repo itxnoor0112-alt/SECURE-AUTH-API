@@ -1,0 +1,65 @@
+{
+  "info": {
+    "name": "Secure Auth Microservice",
+    "description": "Collection for testing JWT Authentication and RBAC endpoints",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Register User",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Ali Raza\",\n  \"email\": \"ali@example.com\",\n  \"password\": \"password123\"\n}"
+        },
+        "url": { "raw": "http://localhost:5000/api/auth/register", "host": ["http://localhost:5000"], "path": ["api", "auth", "register"] }
+      }
+    },
+    {
+      "name": "Login User",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"ali@example.com\",\n  \"password\": \"password123\"\n}"
+        },
+        "url": { "raw": "http://localhost:5000/api/auth/login", "host": ["http://localhost:5000"], "path": ["api", "auth", "login"] }
+      }
+    },
+    {
+      "name": "Get Current User (Protected)",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{accessToken}}" }],
+        "url": { "raw": "http://localhost:5000/api/auth/me", "host": ["http://localhost:5000"], "path": ["api", "auth", "me"] }
+      }
+    },
+    {
+      "name": "Refresh Access Token",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"refreshToken\": \"{{refreshToken}}\"\n}"
+        },
+        "url": { "raw": "http://localhost:5000/api/auth/refresh-token", "host": ["http://localhost:5000"], "path": ["api", "auth", "refresh-token"] }
+      }
+    },
+    {
+      "name": "Get All Users (Admin Only)",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{accessToken}}" }],
+        "url": { "raw": "http://localhost:5000/api/admin/users", "host": ["http://localhost:5000"], "path": ["api", "admin", "users"] }
+      }
+    }
+  ],
+  "variable": [
+    { "key": "accessToken", "value": "" },
+    { "key": "refreshToken", "value": "" }
+  ]
+}
